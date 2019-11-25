@@ -10,7 +10,7 @@ namespace LemonadeStand_3DayStarter
     {
         List<string> possiblePeople;
         Random random;
-        string name;
+        public string name;
         public bool wantsLemonade;
 
 

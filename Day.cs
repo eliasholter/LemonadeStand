@@ -18,7 +18,8 @@ namespace LemonadeStand_3DayStarter
             weather = new Weather();
             customers = new List<Customer>();
             random = new Random();
-            amountOfPeople = random.Next(10, 50);
+            player.recipe.SetRecipe();
+            amountOfPeople = random.Next(5, 10);
 
             for(int i = 0; i < amountOfPeople; i++)
             {
@@ -37,6 +38,8 @@ namespace LemonadeStand_3DayStarter
                 {
                     player.pitcher.PourAGlass();
                 }
+
+                UserInterface.CustomerStopsByShop(customers[i].name, customers[i].wantsLemonade);
             }
         }
     }

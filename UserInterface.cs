@@ -68,12 +68,14 @@ namespace LemonadeStand_3DayStarter
         {
             if (buysLemonade == true)
             {
-                Console.WriteLine(customerName + "has stopped by your lemonade stand and purchased a lemonade!");
+                Console.WriteLine(customerName + " has stopped by your lemonade stand and purchased a lemonade!");
             }
             else
             {
-                Console.WriteLine(customerName + "stopped by your lemonade stand, they didn't want any lemonade this time.");
+                Console.WriteLine(customerName + " stopped by your lemonade stand, they didn't want any lemonade this time.");
             }
+            Console.ReadLine();
+            Console.Clear();
         }
 
         public static void DisplayWeather()

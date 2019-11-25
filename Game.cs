@@ -12,6 +12,7 @@ namespace LemonadeStand_3DayStarter
         Store store;
         List<Day> days;
         int currentDay;
+        public string name;
 
         public Game()
         {
@@ -21,10 +22,11 @@ namespace LemonadeStand_3DayStarter
             currentDay = 1;
             for(int i = 0; i < 7; i++)
             {
-                days.Add(new Day(player));
-                store.SellCups(player);
                 store.SellLemons(player);
                 store.SellSugarCubes(player);
+                store.SellIceCubes(player);
+                store.SellCups(player);
+                days.Add(new Day(player));
                 currentDay ++;
             }
         }
