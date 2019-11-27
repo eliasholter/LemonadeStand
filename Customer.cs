@@ -16,7 +16,7 @@ namespace LemonadeStand_3DayStarter
 
         public Customer()
         {
-            possiblePeople = new List<string> { "Seasonally Depressed Young Adult", "Angsty Teenager", "Basic White Chick", "A Ditzy Blonde", "A Man Who Doesn't Need Directions" };
+            possiblePeople = new List<string> { "Seasonally Depressed Young Adult", "Angsty Teenager", "Basic White Girl", "A Ditzy Blonde", "A Man Who Doesn't Need Directions", "Kid Who Knows Everything" };
             random = new Random();
 
             name = possiblePeople[random.Next(0, 5)];

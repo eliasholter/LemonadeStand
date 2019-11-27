@@ -82,5 +82,16 @@ namespace LemonadeStand_3DayStarter
         {
 
         }
+
+        public static void DisplayDailyTotals(double profitLoss, double runningTotal)
+        {
+            Console.WriteLine("You made $" + profitLoss + " today!");
+            Console.WriteLine("You now have $" + runningTotal);
+        }
+
+        public static void ClearDisplay()
+        {
+            Console.Clear();
+        }
     }
 }

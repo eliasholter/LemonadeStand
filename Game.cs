@@ -11,7 +11,6 @@ namespace LemonadeStand_3DayStarter
         Player player;
         Store store;
         List<Day> days;
-        int currentDay;
         public string name;
 
         public Game()
@@ -19,16 +18,17 @@ namespace LemonadeStand_3DayStarter
             player = new Player();
             store = new Store();
             days = new List<Day>();
-            currentDay = 1;
+
             for(int i = 0; i < 7; i++)
             {
                 RunStorePhase();
+                UserInterface.ClearDisplay();
                 days.Add(new Day(player));
-                currentDay ++;
+                i ++;
             }
         }
 
-        public void RunStorePhase() 
+        public void RunStorePhase() // Here I used the SOLID principle of Single Responsibility by making a separate method for the phase of the game where the player visits the store
         {
             store.SellLemons(player);
             store.SellSugarCubes(player);

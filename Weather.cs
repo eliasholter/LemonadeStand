@@ -23,7 +23,7 @@ namespace LemonadeStand_3DayStarter
         {
             random = new Random();
             temperature = random.Next(5, 65);
-            if(temperature <= 32)
+            if(temperature < 32)
             {
                 condition = weatherConditions[random.Next(0, 3)];
             }
