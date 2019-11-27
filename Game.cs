@@ -22,13 +22,18 @@ namespace LemonadeStand_3DayStarter
             currentDay = 1;
             for(int i = 0; i < 7; i++)
             {
-                store.SellLemons(player);
-                store.SellSugarCubes(player);
-                store.SellIceCubes(player);
-                store.SellCups(player);
+                RunStorePhase();
                 days.Add(new Day(player));
                 currentDay ++;
             }
+        }
+
+        public void RunStorePhase() 
+        {
+            store.SellLemons(player);
+            store.SellSugarCubes(player);
+            store.SellIceCubes(player);
+            store.SellCups(player);
         }
     }
 }
