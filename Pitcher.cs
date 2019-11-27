@@ -8,7 +8,7 @@ namespace LemonadeStand_3DayStarter
 {
     class Pitcher
     {
-        int cupsInPitcher;
+        public int cupsInPitcher;
 
         public Pitcher()
         {
@@ -23,9 +23,15 @@ namespace LemonadeStand_3DayStarter
             cupsInPitcher = 12;
         }
 
-        public void PourAGlass()
+        public void PourAGlass(Player user)
         {
+            user.inventory.RemoveCupFromInventory();
             cupsInPitcher --;
+        }
+
+        public void EmptyPitcher()
+        {
+            cupsInPitcher = 0;
         }
     }
 }

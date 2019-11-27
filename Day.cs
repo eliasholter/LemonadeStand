@@ -29,20 +29,26 @@ namespace LemonadeStand_3DayStarter
             for(int i = 0; i < amountOfPeople; i++)
             {
                 customers.Add(new Customer());
-                if (weather.temperature < random.Next(5, 35) || player.recipe.pricePerGlass > random.NextDouble())
+                if (weather.temperature < random.Next(5, 35) || player.recipe.pricePerGlass > random.NextDouble() || weather.condition == weather.weatherConditions[random.Next(0, 3)])
                 {
                     customers[i].wantsLemonade = false;
                 }
 
-                if(weather.condition == weather.weatherConditions[random.Next(0, 3)])
-                {
-                    customers[i].wantsLemonade = false;
-                }
+                //if(weather.condition == weather.weatherConditions[random.Next(0, 3)])
+                //{
+                //    customers[i].wantsLemonade = false;
+                //}
 
-                if(customers[i].wantsLemonade == true)
+                if(customers[i].wantsLemonade == true && player.pitcher.cupsInPitcher > 0)
                 {
-                    player.pitcher.PourAGlass();
+                    player.pitcher.PourAGlass(player);
                     player.wallet.Money += player.recipe.pricePerGlass; 
+                }
+                else if(customers[i].wantsLemonade == true && player.pitcher.cupsInPitcher <= 0)
+                {
+                    player.pitcher.FillPitcher(player.recipe, player);
+                    player.pitcher.PourAGlass(player);
+                    player.wallet.Money += player.recipe.pricePerGlass;
                 }
 
                 UserInterface.CustomerStopsByShop(customers[i].name, customers[i].wantsLemonade);
@@ -51,6 +57,8 @@ namespace LemonadeStand_3DayStarter
             dailyProfitOrLoss = player.wallet.Money - startOfDayCash;
 
             UserInterface.DisplayDailyTotals(dailyProfitOrLoss, player.wallet.Money);
+
+            player.pitcher.EmptyPitcher();
             UserInterface.ClearDisplay();
         }
     }

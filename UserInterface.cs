@@ -24,15 +24,15 @@ namespace LemonadeStand_3DayStarter
             return quantityOfItem;
         }
 
-        public static int GetNumberOfIngredients(string itemsToGet)
+        public static int GetNumberOfIngredients(string ingredientsToAdd)
         {
             bool userInputIsAnInteger = false;
             int quantityOfItem = -1;
 
-            while (!userInputIsAnInteger || quantityOfItem < 0)
+            while (!userInputIsAnInteger || quantityOfItem <= 0)
             {
-                Console.WriteLine("How many " + itemsToGet + " would you like to add?");
-                Console.WriteLine("Please enter a positive integer (or 0 to cancel):");
+                Console.WriteLine("How many " + ingredientsToAdd + " would you like to add?");
+                Console.WriteLine("Please enter a positive integer:");
 
                 userInputIsAnInteger = Int32.TryParse(Console.ReadLine(), out quantityOfItem);
             }
