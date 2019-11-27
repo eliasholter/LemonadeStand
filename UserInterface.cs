@@ -49,6 +49,7 @@ namespace LemonadeStand_3DayStarter
             while (!userInputIsADouble || pricePerGlass < 0)
             {
                 Console.WriteLine("How much would you like to charge per glass?");
+                Console.WriteLine("Please enter a price between $0.01 and $1.00:");
 
                 userInputIsADouble = Double.TryParse(Console.ReadLine(), out pricePerGlass);
             }
@@ -75,7 +76,6 @@ namespace LemonadeStand_3DayStarter
                 Console.WriteLine(customerName + " stopped by your lemonade stand, they didn't want any lemonade this time.");
             }
             Console.ReadLine();
-            Console.Clear();
         }
 
         public static void DisplayWeather()
@@ -83,10 +83,26 @@ namespace LemonadeStand_3DayStarter
 
         }
 
+        public static void DisplayInventory(int lemons, int sugar, int ice, int cups)
+        {
+            Console.WriteLine("Lemons: " + lemons);
+            Console.WriteLine("Sugar Cubes: " + sugar);
+            Console.WriteLine("Ice Cubes: " + ice);
+            Console.WriteLine("Cups: " + cups);
+            Console.ReadLine();
+        }
+
         public static void DisplayDailyTotals(double profitLoss, double runningTotal)
         {
-            Console.WriteLine("You made $" + profitLoss + " today!");
+            Console.WriteLine("You made $" + Math.Round(profitLoss, 2) + " today!");
             Console.WriteLine("You now have $" + runningTotal);
+            Console.ReadLine();
+        }
+
+        public static void StoreIsSoldOut(string item)
+        {
+            Console.WriteLine("Your shop is sold out of " + item + ". Make sure to stock up on more product for tomorrow!");
+            Console.ReadLine();
         }
 
         public static void ClearDisplay()

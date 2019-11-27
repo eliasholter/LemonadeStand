@@ -23,6 +23,7 @@ namespace LemonadeStand_3DayStarter
             recipe = new Recipe();
             pitcher = new Pitcher();
             name = UserInterface.GetUserName();
+            UserInterface.ClearDisplay();
         }
 
         // member methods (CAN DO)

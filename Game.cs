@@ -11,7 +11,6 @@ namespace LemonadeStand_3DayStarter
         Player player;
         Store store;
         List<Day> days;
-        public string name;
 
         public Game()
         {
@@ -21,6 +20,9 @@ namespace LemonadeStand_3DayStarter
 
             for(int i = 0; i < 7; i++)
             {
+                // Display User Inventory
+                UserInterface.DisplayInventory(player.inventory.lemons.Count(), player.inventory.sugarCubes.Count(), player.inventory.iceCubes.Count(), player.inventory.cups.Count());
+                UserInterface.ClearDisplay();
                 RunStorePhase();
                 UserInterface.ClearDisplay();
                 days.Add(new Day(player));

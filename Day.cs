@@ -22,44 +22,74 @@ namespace LemonadeStand_3DayStarter
             customers = new List<Customer>();
             random = new Random();
             startOfDayCash = player.wallet.Money;
-            player.recipe.SetRecipe();
-            UserInterface.ClearDisplay();
-            amountOfPeople = random.Next(5, 10);
 
-            for(int i = 0; i < amountOfPeople; i++)
+            // Validate that user is not sold out of any ingredients, procceed if they are not
+            if (player.inventory.lemons.Count() == 0 || player.inventory.sugarCubes.Count() == 0 || player.inventory.iceCubes.Count() == 0)
             {
-                customers.Add(new Customer());
-                if (weather.temperature < random.Next(5, 35) || player.recipe.pricePerGlass > random.NextDouble() || weather.condition == weather.weatherConditions[random.Next(0, 3)])
-                {
-                    customers[i].wantsLemonade = false;
-                }
-
-                //if(weather.condition == weather.weatherConditions[random.Next(0, 3)])
-                //{
-                //    customers[i].wantsLemonade = false;
-                //}
-
-                if(customers[i].wantsLemonade == true && player.pitcher.cupsInPitcher > 0)
-                {
-                    player.pitcher.PourAGlass(player);
-                    player.wallet.Money += player.recipe.pricePerGlass; 
-                }
-                else if(customers[i].wantsLemonade == true && player.pitcher.cupsInPitcher <= 0)
-                {
-                    player.pitcher.FillPitcher(player.recipe, player);
-                    player.pitcher.PourAGlass(player);
-                    player.wallet.Money += player.recipe.pricePerGlass;
-                }
-
-                UserInterface.CustomerStopsByShop(customers[i].name, customers[i].wantsLemonade);
+                UserInterface.StoreIsSoldOut("lemonade");
+                UserInterface.DisplayDailyTotals(0, player.wallet.Money);
+                UserInterface.ClearDisplay();
+                return;
             }
+            else
+            {
+                player.recipe.SetRecipe();
+                UserInterface.ClearDisplay();
+                player.pitcher.FillPitcher(player.recipe, player);
 
-            dailyProfitOrLoss = player.wallet.Money - startOfDayCash;
+                amountOfPeople = random.Next(5, 10);
 
-            UserInterface.DisplayDailyTotals(dailyProfitOrLoss, player.wallet.Money);
+                for (int i = 0; i < amountOfPeople; i++)
+                {
+                    customers.Add(new Customer());
 
-            player.pitcher.EmptyPitcher();
-            UserInterface.ClearDisplay();
+                    // Randomly decide based upon weather condition, temperature, and the cost of lemonade whether to purchase a lemonade or not
+                    if (weather.temperature < random.Next(5, 35) || player.recipe.pricePerGlass > random.NextDouble() || weather.condition == weather.weatherConditions[random.Next(0, 3)])
+                    {
+                        customers[i].wantsLemonade = false;
+                    }
+
+                    // Make sure there are cups to pour lemonade in
+                    if (player.inventory.cups.Count() <= 0)
+                    {
+                        UserInterface.StoreIsSoldOut("cups");
+                        return;
+                    }
+
+                    if (customers[i].wantsLemonade == true && player.pitcher.cupsInPitcher > 0)
+                    {
+                        player.pitcher.PourAGlass(player);
+                        player.wallet.Money += player.recipe.pricePerGlass;
+                    
+                    }
+                    else if (customers[i].wantsLemonade == true && player.pitcher.cupsInPitcher <= 0)
+                    {
+                        if (player.inventory.lemons.Count() < player.recipe.amountOfLemons || player.inventory.sugarCubes.Count() < player.recipe.amountOfSugarCubes || player.inventory.iceCubes.Count() < player.recipe.amountOfIceCubes)
+                        {
+                            UserInterface.StoreIsSoldOut("lemonade");
+                            UserInterface.DisplayDailyTotals(0, player.wallet.Money);
+                            UserInterface.ClearDisplay();
+                            return;
+                        }
+                        else
+                        {
+                            player.pitcher.FillPitcher(player.recipe, player);
+                            player.pitcher.PourAGlass(player);
+                            player.wallet.Money += player.recipe.pricePerGlass;
+                        }
+                    }
+
+                    UserInterface.CustomerStopsByShop(customers[i].name, customers[i].wantsLemonade);
+                    UserInterface.ClearDisplay();
+                }
+
+                dailyProfitOrLoss = player.wallet.Money - startOfDayCash;
+
+                UserInterface.DisplayDailyTotals(dailyProfitOrLoss, player.wallet.Money);
+
+                player.pitcher.EmptyPitcher();
+                UserInterface.ClearDisplay();
+            }
         }
     }
 }
