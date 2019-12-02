@@ -46,7 +46,7 @@ namespace LemonadeStand_3DayStarter
             bool userInputIsADouble = false;
             double pricePerGlass = -1;
 
-            while (!userInputIsADouble || pricePerGlass < 0)
+            while (!userInputIsADouble || pricePerGlass <= 0)
             {
                 Console.WriteLine("How much would you like to charge per glass?");
                 Console.WriteLine("Please enter a price between $0.01 and $1.00:");
@@ -78,9 +78,24 @@ namespace LemonadeStand_3DayStarter
             Console.ReadLine();
         }
 
-        public static void DisplayWeather()
+        public static int DetermineGameLength()
         {
+            bool userInputIsAnInteger = false;
+            int lengthOfGame = -1;
 
+            while (!userInputIsAnInteger || lengthOfGame <= 0)
+            {
+                Console.WriteLine("How many weeks would you like to play for?");
+                userInputIsAnInteger = Int32.TryParse(Console.ReadLine(), out lengthOfGame);
+            }
+
+            return lengthOfGame;
+        }
+
+        public static void DisplayWeather(string temp, string condition)
+        {
+            Console.WriteLine("It is " + condition + " out today.");
+            Console.WriteLine("The temperature is " + temp + ".");
         }
 
         public static void DisplayInventory(int lemons, int sugar, int ice, int cups)

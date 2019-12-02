@@ -12,13 +12,12 @@ namespace LemonadeStand_3DayStarter
         int amountOfPeople;
         double startOfDayCash;
         double dailyProfitOrLoss;
-        public Weather weather;
-        List<Weather> forecast;
+        //public Weather weather;
         public List<Customer> customers;
 
-        public Day(Player player)
+        public Day(Player player, Weather weather)
         {
-            weather = new Weather();
+            //weather = new Weather();
             customers = new List<Customer>();
             random = new Random();
             startOfDayCash = player.wallet.Money;
@@ -45,6 +44,15 @@ namespace LemonadeStand_3DayStarter
 
                     // Randomly decide based upon weather condition, temperature, and the cost of lemonade whether to purchase a lemonade or not
                     if (weather.temperature < random.Next(5, 35) || player.recipe.pricePerGlass > random.NextDouble() || weather.condition == weather.weatherConditions[random.Next(0, 3)])
+                    {
+                        customers[i].wantsLemonade = false;
+                    }
+
+                    if (customers[i].flavorProfile == "sweet" && player.recipe.amountOfSugarCubes < player.recipe.amountOfLemons)
+                    {
+                        customers[i].wantsLemonade = false;
+                    }
+                    else if(customers[i].flavorProfile == "sour" && player.recipe.amountOfSugarCubes > player.recipe.amountOfLemons)
                     {
                         customers[i].wantsLemonade = false;
                     }

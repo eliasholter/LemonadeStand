@@ -15,7 +15,7 @@ namespace LemonadeStand_3DayStarter
 
         public Weather()
         {
-            weatherConditions = new List<string>{ "Sunny", "Rainy", "Cloudy", "Snowmaggedon"};
+            weatherConditions = new List<string>{ "Rainy", "Sunny", "Cloudy", "Snowmaggedon"};
             GenerateWeather();
         }
 
@@ -25,7 +25,7 @@ namespace LemonadeStand_3DayStarter
             temperature = random.Next(5, 65);
             if(temperature < 32)
             {
-                condition = weatherConditions[random.Next(0, 3)];
+                condition = weatherConditions[random.Next(1, 3)];
             }
             else
             {

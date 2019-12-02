@@ -10,7 +10,9 @@ namespace LemonadeStand_3DayStarter
     {
         List<string> possiblePeople;
         Random random;
+        int chooseFlavor;
         public string name;
+        public string flavorProfile;
         public bool wantsLemonade;
 
 
@@ -19,8 +21,19 @@ namespace LemonadeStand_3DayStarter
             possiblePeople = new List<string> { "Seasonally Depressed Young Adult", "Angsty Teenager", "Basic White Girl", "A Ditzy Blonde", "A Man Who Doesn't Need Directions", "Kid Who Knows Everything" };
             random = new Random();
 
+
+            chooseFlavor = random.Next(0, 2);
             name = possiblePeople[random.Next(0, 5)];
             wantsLemonade = true;
+
+            if(chooseFlavor == 0)
+            {
+                flavorProfile = "sweet";
+            }
+            else if(chooseFlavor == 1)
+            {
+                flavorProfile = "sour";
+            }
         }
     }
 }
