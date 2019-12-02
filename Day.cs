@@ -29,7 +29,7 @@ namespace LemonadeStand_3DayStarter
             if (player.inventory.lemons.Count() == 0 || player.inventory.sugarCubes.Count() == 0 || player.inventory.iceCubes.Count() == 0)
             {
                 UserInterface.StoreIsSoldOut("lemonade");
-                UserInterface.DisplayDailyTotals(0, player.wallet.Money);
+                UserInterface.DisplayDailyTotals(0, player.wallet.Money, player.name);
                 UserInterface.ClearDisplay();
                 return;
             }
@@ -51,11 +51,8 @@ namespace LemonadeStand_3DayStarter
                         customers[i].wantsLemonade = false;
                     }
 
-                    if (customers[i].flavorProfile == "sweet" && player.recipe.amountOfSugarCubes < player.recipe.amountOfLemons)
-                    {
-                        customers[i].wantsLemonade = false;
-                    }
-                    else if(customers[i].flavorProfile == "sour" && player.recipe.amountOfSugarCubes > player.recipe.amountOfLemons)
+                    // Compares customers flavor preferences to today's recipe
+                    if ((customers[i].flavorProfile == "sweet" && player.recipe.amountOfSugarCubes < player.recipe.amountOfLemons) || (customers[i].flavorProfile == "sour" && player.recipe.amountOfSugarCubes > player.recipe.amountOfLemons))
                     {
                         customers[i].wantsLemonade = false;
                     }
@@ -70,15 +67,14 @@ namespace LemonadeStand_3DayStarter
                     if (customers[i].wantsLemonade == true && player.pitcher.cupsInPitcher > 0)
                     {
                         player.pitcher.PourAGlass(player);
-                        player.wallet.Money += player.recipe.pricePerGlass;
-                    
+                        player.wallet.Money += player.recipe.pricePerGlass;                    
                     }
                     else if (customers[i].wantsLemonade == true && player.pitcher.cupsInPitcher <= 0)
                     {
                         if (player.inventory.lemons.Count() < player.recipe.amountOfLemons || player.inventory.sugarCubes.Count() < player.recipe.amountOfSugarCubes || player.inventory.iceCubes.Count() < player.recipe.amountOfIceCubes)
                         {
                             UserInterface.StoreIsSoldOut("lemonade");
-                            UserInterface.DisplayDailyTotals(0, player.wallet.Money);
+                            UserInterface.DisplayDailyTotals(0, player.wallet.Money, player.name);
                             UserInterface.ClearDisplay();
                             return;
                         }

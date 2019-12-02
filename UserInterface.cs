@@ -111,6 +111,7 @@ namespace LemonadeStand_3DayStarter
         {
             Console.WriteLine("It is " + condition + " out today.");
             Console.WriteLine("The temperature is " + temp + ".");
+            Console.ReadLine();
         }
 
         public static void DisplayInventory(int lemons, int sugar, int ice, int cups)
@@ -133,6 +134,11 @@ namespace LemonadeStand_3DayStarter
         {
             Console.WriteLine("Your shop is sold out of " + item + ". Make sure to stock up on more product for tomorrow!");
             Console.ReadLine();
+        }
+
+        public static void UnableToCompletePurchase()
+        {
+            Console.WriteLine("You cannot afford that many, please enter a lesser amount.");
         }
 
         public static void AllOutOfMoney(string name)
