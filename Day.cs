@@ -12,15 +12,18 @@ namespace LemonadeStand_3DayStarter
         int amountOfPeople;
         double startOfDayCash;
         double dailyProfitOrLoss;
-        //public Weather weather;
+        public Weather weather;
         public List<Customer> customers;
 
-        public Day(Player player, Weather weather)
+        public Day(Player player)
         {
-            //weather = new Weather();
+            weather = new Weather();
             customers = new List<Customer>();
             random = new Random();
             startOfDayCash = player.wallet.Money;
+
+            // Display today's weather
+            UserInterface.DisplayWeather(weather.temperature, weather.condition);
 
             // Validate that user is not sold out of any ingredients, procceed if they are not
             if (player.inventory.lemons.Count() == 0 || player.inventory.sugarCubes.Count() == 0 || player.inventory.iceCubes.Count() == 0)
@@ -93,7 +96,7 @@ namespace LemonadeStand_3DayStarter
 
                 dailyProfitOrLoss = player.wallet.Money - startOfDayCash;
 
-                UserInterface.DisplayDailyTotals(dailyProfitOrLoss, player.wallet.Money);
+                UserInterface.DisplayDailyTotals(dailyProfitOrLoss, player.wallet.Money, player.name);
 
                 player.pitcher.EmptyPitcher();
                 UserInterface.ClearDisplay();

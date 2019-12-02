@@ -27,6 +27,9 @@ namespace LemonadeStand_3DayStarter
             {
                 GenerateWeeklyForecast();
 
+                UserInterface.DisplayForecast(weeklyForecast);
+                UserInterface.ClearDisplay();
+
                 for (int j = 0; j < 7; j++)
                 {
                     // Display User Inventory
@@ -34,7 +37,13 @@ namespace LemonadeStand_3DayStarter
                     UserInterface.ClearDisplay();
                     RunStorePhase();
                     UserInterface.ClearDisplay();
-                    days.Add(new Day(player, weeklyForecast[j]));
+                    days.Add(new Day(player));
+
+                    if(player.wallet.Money <= 0 && (player.inventory.lemons.Count() == 0 || player.inventory.sugarCubes.Count() == 0 || player.inventory.cups.Count() == 0))
+                    {
+                        UserInterface.AllOutOfMoney(player.name);
+                        return;
+                    }
                 }
 
                 ClearForecast();

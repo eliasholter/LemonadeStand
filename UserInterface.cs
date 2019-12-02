@@ -92,7 +92,22 @@ namespace LemonadeStand_3DayStarter
             return lengthOfGame;
         }
 
-        public static void DisplayWeather(string temp, string condition)
+        public static void DisplayForecast(List<Weather> forecast)
+        {
+            int i = 0;
+            Console.WriteLine("This Week's Weather Forecast");
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+            while(i < forecast.Count())
+            {
+                Console.WriteLine("Day " + (i+1) + ": Weather-" + forecast[i].condition + "      Temperature-" + forecast[i].temperature + " degrees");
+                i++;
+            }
+
+            Console.ReadLine();
+        }
+
+        public static void DisplayWeather(int temp, string condition)
         {
             Console.WriteLine("It is " + condition + " out today.");
             Console.WriteLine("The temperature is " + temp + ".");
@@ -107,9 +122,9 @@ namespace LemonadeStand_3DayStarter
             Console.ReadLine();
         }
 
-        public static void DisplayDailyTotals(double profitLoss, double runningTotal)
+        public static void DisplayDailyTotals(double profitLoss, double runningTotal, string name)
         {
-            Console.WriteLine("You made $" + Math.Round(profitLoss, 2) + " today!");
+            Console.WriteLine("You made $" + Math.Round(profitLoss, 2) + " today, " + name + "!");
             Console.WriteLine("You now have $" + runningTotal);
             Console.ReadLine();
         }
@@ -117,6 +132,12 @@ namespace LemonadeStand_3DayStarter
         public static void StoreIsSoldOut(string item)
         {
             Console.WriteLine("Your shop is sold out of " + item + ". Make sure to stock up on more product for tomorrow!");
+            Console.ReadLine();
+        }
+
+        public static void AllOutOfMoney(string name)
+        {
+            Console.WriteLine("Oh no! You ran out of money, " + name + "! Better luck next time!");
             Console.ReadLine();
         }
 
