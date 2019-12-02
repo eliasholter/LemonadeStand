@@ -22,6 +22,7 @@ namespace LemonadeStand_3DayStarter
             pricePerSugarCube = .1;
             pricePerIceCube = .01;
             pricePerCup = .25;
+            validPurchase = false;
         }
 
         // member methods (CAN DO)
@@ -80,7 +81,7 @@ namespace LemonadeStand_3DayStarter
                 if (player.wallet.Money >= transactionAmount)
                 {
                     player.wallet.PayMoneyForItems(transactionAmount);
-                    player.inventory.AddLemonsToInventory(iceCubesToPurchase);
+                    player.inventory.AddIceCubesToInventory(iceCubesToPurchase);
                     validPurchase = true;
                 }
                 else
@@ -103,7 +104,7 @@ namespace LemonadeStand_3DayStarter
                 if (player.wallet.Money >= transactionAmount)
                 {
                     player.wallet.PayMoneyForItems(transactionAmount);
-                    player.inventory.AddLemonsToInventory(cupsToPurchase);
+                    player.inventory.AddCupsToInventory(cupsToPurchase);
                     validPurchase = true;
                 }
                 else
