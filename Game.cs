@@ -8,6 +8,7 @@ namespace LemonadeStand_3DayStarter
 {
     class Game
     {
+        Random random;
         Player player;
         Store store;
         List<Day> days;
@@ -18,6 +19,7 @@ namespace LemonadeStand_3DayStarter
         {
             player = new Player();
             store = new Store();
+            random = new Random();
             days = new List<Day>();
             weeklyForecast = new List<Weather>();
             gameLength = UserInterface.DetermineGameLength();
@@ -35,11 +37,16 @@ namespace LemonadeStand_3DayStarter
                     // Display User Inventory
                     UserInterface.DisplayInventory(player.inventory.lemons.Count(), player.inventory.sugarCubes.Count(), player.inventory.iceCubes.Count(), player.inventory.cups.Count());
                     UserInterface.ClearDisplay();
+
+                    // Go to store for the day
                     RunStorePhase();
                     UserInterface.ClearDisplay();
-                    days.Add(new Day(player));
 
-                    if(player.wallet.Money <= 0 && (player.inventory.lemons.Count() == 0 || player.inventory.sugarCubes.Count() == 0 || player.inventory.cups.Count() == 0))
+                    // Run the stand for one day 
+                    days.Add(new Day(player, random));
+
+                    // Check if player is broke, end game if so
+                    if (IsWalletEmpty() == true)
                     {
                         UserInterface.AllOutOfMoney(player.name);
                         return;
@@ -63,6 +70,18 @@ namespace LemonadeStand_3DayStarter
             for(int i = 0; i < 7; i++)
             {
                 weeklyForecast.Add(new Weather()); // For some reason is only generating randomly when stepping through, otherwise it just fills all spaces with same weather object
+            }
+        }
+
+        public bool IsWalletEmpty()
+        {
+            if (player.wallet.Money <= 0 && (player.inventory.lemons.Count() == 0 || player.inventory.sugarCubes.Count() == 0 || player.inventory.cups.Count() == 0))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
