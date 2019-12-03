@@ -18,10 +18,10 @@ namespace LemonadeStand_3DayStarter
         // constructor (SPAWNER)
         public Store()
         {
-            pricePerLemon = .5;
-            pricePerSugarCube = .1;
-            pricePerIceCube = .01;
-            pricePerCup = .25;
+            pricePerLemon = .25;
+            pricePerSugarCube = .25;
+            pricePerIceCube = .1;
+            pricePerCup = .2;
             validPurchase = false;
         }
 

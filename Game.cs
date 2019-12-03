@@ -25,9 +25,14 @@ namespace LemonadeStand_3DayStarter
             gameLength = UserInterface.DetermineGameLength();
             UserInterface.ClearDisplay();
 
+            RunWeek();
+        }
+
+        public void RunWeek()
+        {
             for (int i = 0; i < gameLength; i++)
             {
-                GenerateWeeklyForecast();
+                GenerateWeeklyForecast(random);
 
                 UserInterface.DisplayForecast(weeklyForecast);
                 UserInterface.ClearDisplay();
@@ -65,11 +70,11 @@ namespace LemonadeStand_3DayStarter
             store.SellCups(player);
         }
 
-        public void GenerateWeeklyForecast()
+        public void GenerateWeeklyForecast(Random random)
         {
             for(int i = 0; i < 7; i++)
             {
-                weeklyForecast.Add(new Weather()); // For some reason is only generating randomly when stepping through, otherwise it just fills all spaces with same weather object
+                weeklyForecast.Add(new Weather(random)); 
             }
         }
 

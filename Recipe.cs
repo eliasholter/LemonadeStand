@@ -15,10 +15,7 @@ namespace LemonadeStand_3DayStarter
 
         public Recipe()
         {
-            //amountOfLemons = UserInterface.GetNumberOfIngredients("lemons");
-            //amountOfSugarCubes = UserInterface.GetNumberOfIngredients("sugar cubes");
-            //amountOfIceCubes = UserInterface.GetNumberOfIngredients("ice cubes");
-            //pricePerGlass = UserInterface.SetPricePerGlass();
+
         }
 
         public void SetRecipe()

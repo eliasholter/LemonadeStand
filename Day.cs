@@ -9,6 +9,7 @@ namespace LemonadeStand_3DayStarter
     class Day
     {
         int amountOfPeople;
+        bool canMakePitcher;
         double startOfDayCash;
         double dailyProfitOrLoss;
         public Weather weather;
@@ -16,58 +17,47 @@ namespace LemonadeStand_3DayStarter
 
         public Day(Player player, Random random)
         {
-            weather = new Weather();
+            weather = new Weather(random);
             customers = new List<Customer>();
             startOfDayCash = player.wallet.Money;
 
+            RunDay(player, random);
+        }
+
+        public void RunDay(Player player, Random random)
+        {
             // Display today's weather
             UserInterface.DisplayWeather(weather.temperature, weather.condition);
             UserInterface.ClearDisplay();
 
             player.recipe.SetRecipe();
-            UserInterface.ClearDisplay(); 
-            if (player.inventory.lemons.Count() < player.recipe.amountOfLemons || player.inventory.sugarCubes.Count() < player.recipe.amountOfSugarCubes || player.inventory.iceCubes.Count() < player.recipe.amountOfIceCubes)
+            UserInterface.ClearDisplay();
+            if(CheckStockIngredients(player) == false)
             {
-                UserInterface.StoreIsSoldOut("lemonade");
-                UserInterface.DisplayDailyTotals(0, player.wallet.Money, player.name);
-                UserInterface.ClearDisplay();
                 return;
             }
             player.pitcher.FillPitcher(player.recipe, player);
 
-            amountOfPeople = random.Next(5, 10);
+            amountOfPeople = random.Next(5, 20);
 
+            // Run through however many people come to the stand that day
             for (int i = 0; i < amountOfPeople; i++)
             {
-                customers.Add(new Customer(random));
+                customers.Add(new Customer(random, weather, player.recipe));
 
-                // Randomly decide based upon weather condition, temperature, and the cost of lemonade whether to purchase a lemonade or not
-                if (weather.temperature < random.Next(5, 35) || player.recipe.pricePerGlass > random.NextDouble() || weather.condition == weather.weatherConditions[random.Next(0, 3)])
-                {
-                    customers[i].wantsLemonade = false;
-                }
-
-                // Compares customers flavor preferences to today's recipe
-                if ((customers[i].flavorProfile == "sweet" && player.recipe.amountOfSugarCubes < player.recipe.amountOfLemons) || (customers[i].flavorProfile == "sour" && player.recipe.amountOfSugarCubes > player.recipe.amountOfLemons))
-                {
-                    customers[i].wantsLemonade = false;
-                }
-
-                // Make sure there are cups to pour lemonade in
-                if (player.inventory.cups.Count() <= 0)
-                {
-                    UserInterface.StoreIsSoldOut("cups");
-                    return;
-                }
+                CheckStockCups(player);
 
                 if (customers[i].wantsLemonade == true && player.pitcher.cupsInPitcher > 0)
                 {
                     player.pitcher.PourAGlass(player);
-                    player.wallet.Money += player.recipe.pricePerGlass;                    
+                    player.wallet.Money += player.recipe.pricePerGlass;
                 }
                 else if (customers[i].wantsLemonade == true && player.pitcher.cupsInPitcher <= 0)
                 {
-                    CheckStock(player);
+                    if (CheckStockIngredients(player) == false)
+                    {
+                        return;
+                    }
                     player.pitcher.FillPitcher(player.recipe, player);
                     player.pitcher.PourAGlass(player);
                     player.wallet.Money += player.recipe.pricePerGlass;
@@ -77,20 +67,10 @@ namespace LemonadeStand_3DayStarter
                 UserInterface.ClearDisplay();
             }
 
-            dailyProfitOrLoss = player.wallet.Money - startOfDayCash;
-
-            UserInterface.DisplayDailyTotals(dailyProfitOrLoss, player.wallet.Money, player.name);
-
-            player.pitcher.EmptyPitcher();
-            UserInterface.ClearDisplay();
+            EndOfDayResponsibilities(player);
         }
 
-        public void RunDay()
-        {
-
-        }
-
-        public bool CheckStock(Player player)
+        public bool CheckStockIngredients(Player player)
         {
             if (player.inventory.lemons.Count() < player.recipe.amountOfLemons || player.inventory.sugarCubes.Count() < player.recipe.amountOfSugarCubes || player.inventory.iceCubes.Count() < player.recipe.amountOfIceCubes)
             {
@@ -103,6 +83,29 @@ namespace LemonadeStand_3DayStarter
             {
                 return true;
             }
+        }
+
+        public bool CheckStockCups(Player player)
+        {
+            if (player.inventory.cups.Count() <= 0)
+            {
+                UserInterface.StoreIsSoldOut("cups");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public void EndOfDayResponsibilities(Player player)
+        {
+            dailyProfitOrLoss = player.wallet.Money - startOfDayCash;
+
+            UserInterface.DisplayDailyTotals(dailyProfitOrLoss, player.wallet.Money, player.name);
+
+            player.pitcher.EmptyPitcher();
+            UserInterface.ClearDisplay();
         }
     }
 }

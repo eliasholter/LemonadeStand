@@ -8,14 +8,12 @@ namespace LemonadeStand_3DayStarter
 {
     class Player
     {
-        // member variables (HAS A)
         public Inventory inventory;
         public Wallet wallet;
         public Recipe recipe;
         public Pitcher pitcher;
         public string name;
 
-        // constructor (SPAWNER)
         public Player()
         {
             inventory = new Inventory();
@@ -26,7 +24,6 @@ namespace LemonadeStand_3DayStarter
             UserInterface.ClearDisplay();
         }
 
-        // member methods (CAN DO)
 
     }
 }
