@@ -9,7 +9,6 @@ namespace LemonadeStand_3DayStarter
     class Day
     {
         int amountOfPeople;
-        bool canMakePitcher;
         double startOfDayCash;
         double dailyProfitOrLoss;
         public Weather weather;
@@ -58,6 +57,7 @@ namespace LemonadeStand_3DayStarter
                     {
                         return;
                     }
+                    UserInterface.AlertToNewPitcher();
                     player.pitcher.FillPitcher(player.recipe, player);
                     player.pitcher.PourAGlass(player);
                     player.wallet.Money += player.recipe.pricePerGlass;

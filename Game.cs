@@ -32,6 +32,8 @@ namespace LemonadeStand_3DayStarter
         {
             for (int i = 0; i < gameLength; i++)
             {
+                UserInterface.DisplayWeekCounter(i + 1);
+
                 GenerateWeeklyForecast(random);
 
                 UserInterface.DisplayForecast(weeklyForecast);
@@ -60,6 +62,8 @@ namespace LemonadeStand_3DayStarter
 
                 ClearForecast();
             }
+
+            UserInterface.DisplayGameFinish(player.name, player.wallet.Money);
         }
 
         public void RunStorePhase() // Here I used the SOLID principle of Single Responsibility by making a separate method for the phase of the game where the player visits the store

@@ -92,6 +92,11 @@ namespace LemonadeStand_3DayStarter
             return lengthOfGame;
         }
 
+        public static void DisplayWeekCounter(int currentWeek)
+        {
+            Console.WriteLine("Begin Week " + currentWeek);
+        }
+
         public static void DisplayForecast(List<Weather> forecast)
         {
             int i = 0;
@@ -126,7 +131,20 @@ namespace LemonadeStand_3DayStarter
         public static void DisplayDailyTotals(double profitLoss, double runningTotal, string name)
         {
             Console.WriteLine("You made $" + Math.Round(profitLoss, 2) + " today, " + name + "!");
-            Console.WriteLine("You now have $" + runningTotal);
+            Console.WriteLine("You now have $" + Math.Round(runningTotal, 2));
+            Console.ReadLine();
+        }
+
+        public static void DisplayGameFinish(string name, double total)
+        {
+            Console.WriteLine("Congratulations " + name + " your lemonade stand survived!");
+            Console.WriteLine("Your earned $" + Math.Round((total - 20), 2));
+            Console.ReadLine();
+        }
+
+        public static void AlertToNewPitcher()
+        {
+            Console.WriteLine("Oops, looks like your pitcher's empty! Better whip up another.");
             Console.ReadLine();
         }
 
