@@ -14,17 +14,19 @@ namespace LemonadeStand_3DayStarter
         public Weather weather;
         public List<Customer> customers;
 
-        public Day(Player player, Random random)
+        public Day(Player player, Random random, Weather weather)
         {
-            weather = new Weather(random);
             customers = new List<Customer>();
             startOfDayCash = player.wallet.Money;
 
-            RunDay(player, random);
+            RunDay(player, random, weather);
         }
 
-        public void RunDay(Player player, Random random)
+        public void RunDay(Player player, Random random, Weather weather)
         {
+            // Randomly adjust weather based upon forecasted weather
+            RandomlyAdjustWeather(weather, random);
+
             // Display today's weather
             UserInterface.DisplayWeather(weather.temperature, weather.condition);
             UserInterface.ClearDisplay();
@@ -68,6 +70,19 @@ namespace LemonadeStand_3DayStarter
             }
 
             EndOfDayResponsibilities(player);
+        }
+
+        public void RandomlyAdjustWeather(Weather weather, Random random)
+        {
+            weather.temperature = weather.temperature + random.Next(-6, 6);
+            if (weather.temperature < 32)
+            {
+                weather.condition = weather.weatherConditions[random.Next(1, 3)];
+            }
+            else
+            {
+                weather.condition = weather.weatherConditions[random.Next(0, 2)];
+            }
         }
 
         public bool CheckStockIngredients(Player player)

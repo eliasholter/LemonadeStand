@@ -50,7 +50,7 @@ namespace LemonadeStand_3DayStarter
                     UserInterface.ClearDisplay();
 
                     // Run the stand for one day 
-                    days.Add(new Day(player, random));
+                    days.Add(new Day(player, random, weeklyForecast[j]));
 
                     // Check if player is broke, end game if so
                     if (IsWalletEmpty() == true)
