@@ -17,17 +17,23 @@ namespace LemonadeStand_3DayStarter
 
         public Customer(Random random, Weather weather, Recipe recipe)
         {
-            possiblePeople = new List<string> { "Ben Dover", "Eileen Dover", "Jim Nasuim", "Herbie Hind", "Ivanna Tinkle", "Sandy Beach", "Lee Kee Bum" };
+            possiblePeople = new List<string> { "Ben Dover", "Eileen Dover", "Jim Nasuim", "Herbie Hind", "Ivanna Tinkle", "Sandy Beach", "Lee Kee Bum", "Dr. Seymour Butz",  };
             name = possiblePeople[random.Next(0, 5)];
             wantsLemonade = true;
+
+            RandomizeLemonadeDesire(random, weather, recipe);
+        }
+
+        private void RandomizeLemonadeDesire(Random random, Weather weather, Recipe recipe)
+        {
             chooseFlavor = random.Next(0, 2);
 
 
-            if(chooseFlavor == 0)
+            if (chooseFlavor == 0)
             {
                 flavorProfile = "sweet";
             }
-            else if(chooseFlavor == 1)
+            else if (chooseFlavor == 1)
             {
                 flavorProfile = "sour";
             }

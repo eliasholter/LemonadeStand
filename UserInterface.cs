@@ -95,6 +95,8 @@ namespace LemonadeStand_3DayStarter
         public static void DisplayWeekCounter(int currentWeek)
         {
             Console.WriteLine("Begin Week " + currentWeek);
+            Console.WriteLine();
+            Console.ReadLine();
         }
 
         public static void DisplayForecast(List<Weather> forecast)
